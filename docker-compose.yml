@@ -1,0 +1,16 @@
+version: '3'
+services:
+  node:
+    build: .
+    command: npm start
+    ports:
+      - "3006:3000"
+    environment:
+      - NODE_ENV=development
+      # variables to allow hot reloading
+      - WDS_SOCKET_HOST=127.0.0.1
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    volumes:
+    - ./react-app:/usr/app/
+    - /usr/app/node_modules
