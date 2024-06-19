@@ -35,7 +35,7 @@ function SidebarMenu() {
           {[
             { text: 'Pedir hora', url: 'pedir-hora' },
             { text: 'Cancelar hora', url: 'cancelar-hora' },
-            { text: 'Iniciar sesión', url: 'login' },
+            
           ].map((item, index) => (
             <ListItem key={index} disablePadding>
               <ListItemButton component={Link} to={'/'+item.url}

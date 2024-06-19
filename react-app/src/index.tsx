@@ -1,19 +1,35 @@
-import React from 'react'; //si se trabaja con node_modules en docker, puede marcar error algunas importaciones, igualmente compilará
-import ReactDOM from 'react-dom/client';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
+// Declaración de las consultas GraphQL como constantes
+const LOGIN_QUERY = gql`
+  query Login($datoslog1: login) {
+    login(input: $datoslog1) {
+      rut
+      nrol
+      mensaje
+    }
+  }
+`;
+
+
+
+// Creación del cliente Apollo
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql',
+  cache: new InMemoryCache(),
+});
+
+// Renderizado de la aplicación
+ReactDOM.render(
+  <ApolloProvider client={client}>
     <App />
-  </React.StrictMode>
+  </ApolloProvider>,
+  document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

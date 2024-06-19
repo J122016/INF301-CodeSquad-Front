@@ -1,37 +1,76 @@
+// App.tsx
+import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
-//Vistas
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './common/header';
 import DefaultView from './common/defaultView';
-import ExampleViewComponent from './vista0/ejemplo';
 import SidebarMenu from './common/menuLaretal';
+import LoginComponent from './vista0/LoginComponent';
+import IngresarPagoComponent from './vista0/IngresarPagoComponent';
+import RegistroComponent from './vista0/RegistroComponent'; // Importa RegistroComponent
+import PrivateRoute from './PrivateRoute';
 import { Stack } from '@mui/material';
+import { AuthProvider } from './AuthContext';
+import ExampleComponent from './vista0/ExampleComponent';
+import PedirHoraComponent from './vista0/PedirHoraComponent';
+import CancelarHoraComponent from './vista0/CancelarHoraComponent';
 
-/**
- * ## Raíz de aplicativo web
- * - Ruteo (actualmente estático)
- * - Layout (header, sideBar, contenido principal)
- * 
- */
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Header />
-        <Stack direction="row">
-          <SidebarMenu />
-          <Routes>
-            <Route path="/" element={<DefaultView/>} />
-            <Route path="/vistaEjemplo" element={<ExampleViewComponent atribute='example parameter'/>} />
-            <Route path="/pedir-hora" element={<ExampleViewComponent atribute='url: pedir-hora'/>} />
-            <Route path="/cancelar-hora" element={<ExampleViewComponent atribute='url: cancelar-hora'/>} />
-            <Route path="/login" element={<ExampleViewComponent atribute='url: login'/>} />
-            <Route path="/ingreso-pago" element={<ExampleViewComponent atribute='url: ingreso-pago'/>} />
-            <Route path="*" element={<DefaultView/>} />
-          </Routes>
-        </Stack>
-      </div>
+      <AuthProvider>
+        <div className="App">
+          <Header />
+          <Stack direction="row">
+            <SidebarMenu />
+            <Routes>
+              <Route path="/login" element={<LoginComponent />} />
+              <Route path="/registro" element={<RegistroComponent />} /> {/* Agrega la ruta para RegistroComponent */}
+              <Route
+                path="/"
+                element={
+                  <PrivateRoute>
+                    <DefaultView />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/vistaEjemplo"
+                element={
+                  <PrivateRoute>
+                    <ExampleComponent attribute="example parameter" />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/pedir-hora"
+                element={
+                  <PrivateRoute>
+                    <PedirHoraComponent attribute="example parameter" />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/cancelar-hora"
+                element={
+                  <PrivateRoute>
+                    <CancelarHoraComponent attribute="example parameter" />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/ingreso-pago"
+                element={
+                  <PrivateRoute>
+                    <IngresarPagoComponent attribute="example parameter" />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="*" element={<DefaultView />} />
+            </Routes>
+          </Stack>
+        </div>
+      </AuthProvider>
     </Router>
   );
 }
