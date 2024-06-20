@@ -39,7 +39,13 @@ function SidebarMenu() {
           {[
             { text: 'Pedir hora', url: 'pedir-hora' },
             { text: 'Cancelar hora', url: 'cancelar-hora' },
-            
+            { text: 'Calendario médicos', url: 'calendario' },
+            { text: 'Pacientes en espera', url: 'consultar-paciente' },
+            { text: 'Marcar atención médica', url: 'marcar-paciente' },
+            { text: 'Emisión y registro de comisiones', url: 'historial-facturas' },
+            { text: 'Informe recaudación', url: 'informe-recaudacion' },
+            { text: 'Ver Usuarios', url: 'ver-usuarios' },
+            { text: 'Ver Roles', url: 'ver-roles' },            
           ].map((item, index) => (
             <ListItem key={index} disablePadding>
               <ListItemButton component={Link} to={'/'+item.url}

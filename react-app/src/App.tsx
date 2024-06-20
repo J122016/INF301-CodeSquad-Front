@@ -16,6 +16,13 @@ import IngresarPagoComponent from './vista-ingreso-pago/IngresarPagoComponent';
 import RegistroComponent from './vista-registro/RegistroComponent';
 import PedirHoraComponent from './vista-pedir-hora/PedirHoraComponent';
 import CancelarHoraComponent from './vista-cancelar-hora/CancelarHoraComponent';
+import CalendarioComponent from './vista-calendario/CalendarioComponent';
+import ConsultarPacienteComponent from './vista-consultar-paciente/ConsultarPacienteComponent';
+import VerUsuariosComponent from './vista-ver-usuarios/VerUsuariosComponent';
+import InformeRecaudacionComponent from './vista-informe-recaudacion/InformeRecaudacionComponent';
+import MarcarPacienteComponent from './vista-marcar-paciente/MarcarPacienteComponent';
+import HistorialFacturasComponent from './vista-historial-facturas/HistorialFacturasComponent';
+import VerRolesComponent from './vista-ver-roles/VerRolesComponent';
 
 function App() {
   return (
@@ -71,6 +78,48 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route path="/calendario" 
+                element={
+                  <PrivateRoute>
+                    <CalendarioComponent attribute="calendario" />
+                  </PrivateRoute>
+                } />
+              <Route path="/consultar-paciente" 
+                element={
+                  <PrivateRoute>
+                    <ConsultarPacienteComponent attribute="consultar pacientes" />
+                  </PrivateRoute>
+                  } />
+              <Route path="/marcar-paciente" 
+                element={
+                  <PrivateRoute>
+                    <MarcarPacienteComponent attribute="marcar pacientes" />
+                  </PrivateRoute>
+                  } />
+              <Route path="/ver-usuarios" 
+                element={
+                  <PrivateRoute>
+                    <VerUsuariosComponent attribute="ver usuarios"/>
+                  </PrivateRoute>
+                  } />
+              <Route path="/ver-roles" 
+                element={
+                  <PrivateRoute>
+                    <VerRolesComponent attribute="ver roles"/>
+                  </PrivateRoute>
+                  } />
+              <Route path="/historial-facturas" 
+                element={
+                  <PrivateRoute>
+                    <HistorialFacturasComponent attribute="historial facturas" />
+                  </PrivateRoute>
+                  } />
+              <Route path="/informe-recaudacion" 
+                element={
+                  <PrivateRoute>
+                    <InformeRecaudacionComponent attribute="informe recaudación" />
+                  </PrivateRoute>
+                  } />
               <Route path="*" element={<DefaultView />} />
             </Routes>
             </Grid>
