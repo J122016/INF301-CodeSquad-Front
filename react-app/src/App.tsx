@@ -2,18 +2,20 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './common/header';
-import DefaultView from './common/defaultView';
-import SidebarMenu from './common/menuLaretal';
-import LoginComponent from './vista0/LoginComponent';
-import IngresarPagoComponent from './vista0/IngresarPagoComponent';
-import RegistroComponent from './vista0/RegistroComponent'; // Importa RegistroComponent
 import PrivateRoute from './PrivateRoute';
-import { Stack } from '@mui/material';
+import { Grid } from '@mui/material';
 import { AuthProvider } from './AuthContext';
 import ExampleComponent from './vista0/ExampleComponent';
-import PedirHoraComponent from './vista0/PedirHoraComponent';
-import CancelarHoraComponent from './vista0/CancelarHoraComponent';
+import ExampleViewComponent from './vista0/ejemplo';
+import DefaultView from './common/defaultView';
+
+import Header from './common/header';
+import SidebarMenu from './common/menuLaretal';
+import LoginComponent from './vista-login/LoginComponent';
+import IngresarPagoComponent from './vista-ingreso-pago/IngresarPagoComponent';
+import RegistroComponent from './vista-registro/RegistroComponent';
+import PedirHoraComponent from './vista-pedir-hora/PedirHoraComponent';
+import CancelarHoraComponent from './vista-cancelar-hora/CancelarHoraComponent';
 
 function App() {
   return (
@@ -21,8 +23,11 @@ function App() {
       <AuthProvider>
         <div className="App">
           <Header />
-          <Stack direction="row">
+          <Grid container spacing={0} columns={12} justifyContent="space-evenly" sx={{bgcolor:'#edf5fd'}}>
+            <Grid item xs={10} md={2} mt={4} sx={{mt:0}}>
             <SidebarMenu />
+            </Grid>
+            <Grid item xs={10} mt={4} sx={{mt:0}}>
             <Routes>
               <Route path="/login" element={<LoginComponent />} />
               <Route path="/registro" element={<RegistroComponent />} /> {/* Agrega la ruta para RegistroComponent */}
@@ -30,7 +35,7 @@ function App() {
                 path="/"
                 element={
                   <PrivateRoute>
-                    <DefaultView />
+                    <ExampleViewComponent attribute="example parameter" />
                   </PrivateRoute>
                 }
               />
@@ -38,7 +43,7 @@ function App() {
                 path="/vistaEjemplo"
                 element={
                   <PrivateRoute>
-                    <ExampleComponent attribute="example parameter" />
+                    <DefaultView />
                   </PrivateRoute>
                 }
               />
@@ -68,7 +73,8 @@ function App() {
               />
               <Route path="*" element={<DefaultView />} />
             </Routes>
-          </Stack>
+            </Grid>
+          </Grid>
         </div>
       </AuthProvider>
     </Router>

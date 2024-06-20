@@ -5,6 +5,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
+import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
 
 
 /**
@@ -17,9 +20,10 @@ function SidebarMenu() {
   // Acceso para conocer locación/url
   const location = useLocation();
   const actualPath = location.pathname;
+  const { user, logout } = useAuth();
 
   return (
-    <Box sx={{ width: 'auto', maxWidth: 360}}>
+    <Box sx={{ width: 'auto', bgcolor:'#f8f9fa'}}>
       <nav aria-label="main mailbox folders">
         <List>
           <ListItem disablePadding>
@@ -61,7 +65,20 @@ function SidebarMenu() {
       </nav>
       <Divider />
       <Box sx={{ p: 2 }}>
-        Usuario sin autenticar
+        {user ? (
+            <>
+              <Typography variant="body1">
+                Bienvenido, {user}
+              </Typography>
+              <Button variant="contained" color="secondary" onClick={logout} sx={{mt:2}}>
+                Cerrar Sesión
+              </Button>
+            </>
+          ) : (
+            <Button variant="contained" color="primary" href="/login">
+              Login
+            </Button>
+          )}
       </Box>
     </Box>
   );

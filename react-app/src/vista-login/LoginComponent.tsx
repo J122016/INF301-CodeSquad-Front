@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useApolloClient, gql } from '@apollo/client';
-import { Button, TextField, Modal, Box, Typography, Alert, AlertTitle } from '@mui/material';
+import { Button, TextField, Modal, Alert, AlertTitle, Fade, Container } from '@mui/material';
 import { useAuth } from '../AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './ejemplo.css'; // Importamos los estilos CSS
 
 const LOGIN_QUERY = gql`
@@ -23,6 +23,7 @@ const LoginComponent: React.FC = () => {
   const [password, setPassword] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [loginMessage, setLoginMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,10 +43,13 @@ const LoginComponent: React.FC = () => {
         login(username || email);
       }
       setOpenModal(true);
+      setTimeout(() => { setOpenModal(true) }, 2000);
+      setTimeout(() => { navigate('/pedir-hora') }, 3500);
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       setLoginMessage('Error al iniciar sesión');
       setOpenModal(true);
+      setTimeout(() => { setOpenModal(false) }, 3000);
     }
   };
 
@@ -54,52 +58,49 @@ const LoginComponent: React.FC = () => {
   };
 
   return (
+    <Fade in={true}>
     <div className="container login-page">
       <div className="login-container">
         <h2>Inicio de Sesión</h2>
         <form onSubmit={handleLogin}>
-          <div className="form-group">
             <TextField
+              required={!email}
               type="text"
               label="Usuario"
               variant="outlined"
               fullWidth
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="mt-3"
+              sx={{mt:3}}
             />
-          </div>
-          <div className="form-group">
             <TextField
+              disabled={!!username}
+              required={!username}
               type="email"
               label="Correo electrónico"
               variant="outlined"
               fullWidth
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-3"
+              sx={{mt:3}}
             />
-          </div>
-          <div className="form-group">
             <TextField
+              required
               type="password"
               label="Contraseña"
               variant="outlined"
               fullWidth
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-3"
+              sx={{mt:3}}
             />
-          </div>
-          <div className="form-group">
-            <Button type="submit" variant="contained" color="primary" fullWidth className="mt-3">
+            <Button type="submit" variant="contained" color="primary" fullWidth sx={{mt:3}}>
               Iniciar Sesión
             </Button>
-          </div>
         </form>
-        <div className="register-link mt-3">
+        <Container sx={{mt:3}} className="register-link">
           <span>¿No tienes una cuenta? <Link to="/registro">Regístrate aquí</Link></span>
-        </div>
+        </Container>
       </div>
 
       <Modal
@@ -108,19 +109,15 @@ const LoginComponent: React.FC = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box className="modal-container">
-          <Alert severity={loginMessage === 'Login correcto' ? 'success' : 'error'}>
+          <Alert variant="filled" severity={loginMessage === 'Login correcto' ? 'success' : 'error'}>
             <AlertTitle>{loginMessage === 'Login correcto' ? 'Éxito' : 'Error'}</AlertTitle>
             {loginMessage === 'Login correcto'
               ? `Bienvenido, ${username || email}!`
               : loginMessage}
           </Alert>
-          <Button onClick={handleCloseModal} color="primary" className="mt-2">
-            Cerrar
-          </Button>
-        </Box>
       </Modal>
     </div>
+    </Fade>
   );
 };
 

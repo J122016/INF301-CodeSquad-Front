@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import { Divider, Link, Paper, Stack } from '@mui/material';
 
 interface MyComponentProps {
-  atribute: string;
+  attribute: string;
 }
 
 //otra forma de definir estilos aparte de CSS
@@ -32,7 +32,7 @@ const modalStyle = {
  * Puede ser utilizado para testear react, MUI, incluye ejemplos básicos.
  * @param param0 String, ejemplo de parametro de entrada
  */
-const ExampleViewComponent: React.FC<MyComponentProps> = ({ atribute }) => {
+const ExampleViewComponent: React.FC<MyComponentProps> = ({ attribute }) => {
 
   // Estados (si se requieren)
   const [openBoolean, setOpenBoolean] = useState(false);
@@ -100,7 +100,7 @@ const ExampleViewComponent: React.FC<MyComponentProps> = ({ atribute }) => {
   return (
     <div className="container">
       <h1 className="title">Vista de ejemplo (src &gt; Vista0 &gt; ejemplo.tsx)</h1>
-      <p>Parámetro desde componente padre en caso de necesitarlo: {atribute}</p>
+      <p>Parámetro desde componente padre en caso de necesitarlo: {attribute}</p>
     
       <Paper elevation={0} 
         sx={{
