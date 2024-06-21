@@ -38,6 +38,7 @@ const LoginComponent: React.FC = () => {
         query: LOGIN_QUERY,
         variables: { datoslog1: input }
       });
+      window.sessionStorage.setItem("rut", data.login.rut);
       setLoginMessage(data.login.mensaje);
       if (data.login.mensaje === 'Login correcto') {
         login(username || email);

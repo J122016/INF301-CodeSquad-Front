@@ -38,6 +38,7 @@ function SidebarMenu() {
 
           {[
             { text: 'Pedir hora', url: 'pedir-hora' },
+            { text: 'Ver horas', url: 'ver-horas' },
             { text: 'Cancelar hora', url: 'cancelar-hora' },
             
           ].map((item, index) => (
