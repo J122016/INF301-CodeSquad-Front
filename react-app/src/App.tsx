@@ -10,7 +10,7 @@ import ExampleViewComponent from './vista0/ejemplo';
 import DefaultView from './common/defaultView';
 
 import Header from './common/header';
-import SidebarMenu from './common/menuLaretal';
+import SidebarMenu from './common/menuLateral';
 import LoginComponent from './vista-login/LoginComponent';
 import IngresarPagoComponent from './vista-ingreso-pago/IngresarPagoComponent';
 import RegistroComponent from './vista-registro/RegistroComponent';
