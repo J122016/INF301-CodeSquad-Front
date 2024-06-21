@@ -15,6 +15,7 @@ import LoginComponent from './vista-login/LoginComponent';
 import IngresarPagoComponent from './vista-ingreso-pago/IngresarPagoComponent';
 import RegistroComponent from './vista-registro/RegistroComponent';
 import PedirHoraComponent from './vista-pedir-hora/PedirHoraComponent';
+import VerHorasComponent from './vista-ver-horas/VerHorasComponent';
 import CancelarHoraComponent from './vista-cancelar-hora/CancelarHoraComponent';
 import CalendarioComponent from './vista-calendario/CalendarioComponent';
 import ConsultarPacienteComponent from './vista-consultar-paciente/ConsultarPacienteComponent';
@@ -23,6 +24,8 @@ import InformeRecaudacionComponent from './vista-informe-recaudacion/InformeReca
 import MarcarPacienteComponent from './vista-marcar-paciente/MarcarPacienteComponent';
 import HistorialFacturasComponent from './vista-historial-facturas/HistorialFacturasComponent';
 import VerRolesComponent from './vista-ver-roles/VerRolesComponent';
+
+const rut = window.sessionStorage.getItem('rut');
 
 function App() {
   return (
@@ -59,6 +62,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <PedirHoraComponent attribute="example parameter" />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/ver-horas"
+                element={
+                  <PrivateRoute>
+                    <VerHorasComponent attribute={rut!} />
                   </PrivateRoute>
                 }
               />
