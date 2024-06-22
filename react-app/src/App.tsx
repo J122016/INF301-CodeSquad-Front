@@ -25,9 +25,10 @@ import MarcarPacienteComponent from './vista-marcar-paciente/MarcarPacienteCompo
 import HistorialFacturasComponent from './vista-historial-facturas/HistorialFacturasComponent';
 import VerRolesComponent from './vista-ver-roles/VerRolesComponent';
 
-const rut = window.sessionStorage.getItem('rut');
-
 function App() {
+
+  const rut = window.sessionStorage.getItem('rut');
+
   return (
     <Router>
       <AuthProvider>
