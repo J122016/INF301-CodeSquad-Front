@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApolloClient, gql } from '@apollo/client';
 import { Modal, Box, Button, TextField, MenuItem } from '@mui/material';
+import { useRut } from '../RutContext';
 import './ejemplo.css';
 
 interface VerHorasComponentProps {
@@ -95,6 +96,7 @@ const formatDate = (dateString: string): string => {
 };
 
 const VerHorasComponent: React.FC<VerHorasComponentProps> = ({ attribute }) => {
+  const { rut } = useRut();
   const [reservas, setReservas] = useState<Reserva[]>([]);
   const [medicos, setMedicos] = useState<Medico[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -110,7 +112,7 @@ const VerHorasComponent: React.FC<VerHorasComponentProps> = ({ attribute }) => {
 
   useEffect(() => {
     const fetchReservas = async () => {
-      const input = { rut: attribute };
+      const input = { rut: rut };
       try {
         const { data } = await client.query({
           query: RESERVAS_QUERY,
@@ -152,7 +154,7 @@ const VerHorasComponent: React.FC<VerHorasComponentProps> = ({ attribute }) => {
 
     fetchReservas();
     fetchMedicos();
-  }, [attribute, client]);
+  }, [rut, client]);
 
   const handleEdit = (reserva: Reserva) => {
     setCurrentReserva(reserva);
