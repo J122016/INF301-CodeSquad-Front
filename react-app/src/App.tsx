@@ -110,7 +110,7 @@ function App() {
               <Route path="/ver-usuarios" 
                 element={
                   <PrivateRoute>
-                    <VerUsuariosComponent attribute="ver usuarios"/>
+                    <VerUsuariosComponent/>
                   </PrivateRoute>
                   } />
               <Route path="/ver-roles" 
