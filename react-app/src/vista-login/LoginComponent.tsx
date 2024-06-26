@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApolloClient, gql } from '@apollo/client';
 import { Button, TextField, Modal, Alert, AlertTitle, Fade, Container } from '@mui/material';
 import { useAuth } from '../AuthContext';
+import { useRut } from '../RutContext';
 import { Link, useNavigate } from 'react-router-dom';
 import './ejemplo.css'; // Importamos los estilos CSS
 
@@ -18,6 +19,7 @@ const LOGIN_QUERY = gql`
 const LoginComponent: React.FC = () => {
   const client = useApolloClient();
   const { login } = useAuth();
+  const { setRut } = useRut();
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -38,7 +40,7 @@ const LoginComponent: React.FC = () => {
         query: LOGIN_QUERY,
         variables: { datoslog1: input }
       });
-      window.sessionStorage.setItem("rut", data.login.rut);
+      setRut(data.login.rut);
       setLoginMessage(data.login.mensaje);
       if (data.login.mensaje === 'Login correcto') {
         login(username || email);
