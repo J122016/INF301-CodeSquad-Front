@@ -6,7 +6,6 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
-import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 
 
@@ -20,10 +19,16 @@ function SidebarMenu() {
   // Acceso para conocer locación/url
   const location = useLocation();
   const actualPath = location.pathname;
-  const { user, logout } = useAuth();
+  const { user, rol, logout } = useAuth();
 
   return (
     <Box sx={{ width: 'auto', bgcolor:'#f8f9fa'}}>
+      <Box sx={{ p: 2 }}>
+        <Typography variant="body1">
+          Bienvenido {user? user: null}
+        </Typography>
+      </Box>
+      <Divider/>
       <nav aria-label="main mailbox folders">
         <List>
           <ListItem disablePadding>
@@ -35,19 +40,28 @@ function SidebarMenu() {
               <ListItemText primary="Inicio" />
             </ListItemButton>
           </ListItem>
+          <ListItem disablePadding>
+          <ListItemButton component={Link} to="/login" onClick={() => {user && logout()}}
+              sx={{ 
+                bgcolor: actualPath === "/login"? 'primary.main' : '', 
+                color: actualPath === "/login"? 'common.white' : '' 
+                }}>
+              <ListItemText primary={(user? "Cerrar": "Iniciar")+" sesión"} />
+            </ListItemButton>
+          </ListItem>
 
           {[
-            { text: 'Pedir hora', url: 'pedir-hora' },
-            { text: 'Ver horas', url: 'ver-horas' },
-            { text: 'Cancelar hora', url: 'cancelar-hora' },
-            { text: 'Calendario médicos', url: 'calendario' },
-            { text: 'Pacientes en espera', url: 'consultar-paciente' },
-            { text: 'Marcar atención médica', url: 'marcar-paciente' },
-            { text: 'Emisión y registro de comisiones', url: 'historial-facturas' },
-            { text: 'Informe recaudación', url: 'informe-recaudacion' },
-            { text: 'Ver Usuarios', url: 'ver-usuarios' },
-            { text: 'Ver Roles', url: 'ver-roles' },            
-          ].map((item, index) => (
+            { text: 'Pedir hora', url: 'pedir-hora', permissions:["Admin", "Paciente"] },
+            { text: 'Ver horas', url: 'ver-horas', permissions:["Admin", "Paciente", "Secretaria"] }, //duda
+            { text: 'Cancelar hora', url: 'cancelar-hora', permissions:["Admin", "Paciente"] },
+            { text: 'Calendario médicos', url: 'calendario', permissions:["Admin", "Secretaria"] },
+            { text: 'Pacientes en espera', url: 'consultar-paciente', permissions:["Admin", "Secretaria", "Medico"] },
+            { text: 'Marcar atención médica', url: 'marcar-paciente', permissions:["Admin"] },
+            { text: 'Emisión y registro de comisiones', url: 'historial-facturas', permissions:["Admin", "Secretaria"] },
+            { text: 'Informe recaudación', url: 'informe-recaudacion', permissions:["Admin", "Secretaria"] },
+            { text: 'Ver Usuarios', url: 'ver-usuarios', permissions:["Admin"] },
+            { text: 'Ver Roles', url: 'ver-roles', permissions:["Admin"] },            
+          ].filter((view) => view.permissions.includes(rol? rol:'')).map((item, index) => (
             <ListItem key={index} disablePadding>
               <ListItemButton component={Link} to={'/'+item.url}
                 sx={{ 
@@ -70,23 +84,6 @@ function SidebarMenu() {
           </ListItem>
         </List>
       </nav>
-      <Divider />
-      <Box sx={{ p: 2 }}>
-        {user ? (
-            <>
-              <Typography variant="body1">
-                Bienvenido, {user}
-              </Typography>
-              <Button variant="contained" color="secondary" onClick={logout} sx={{mt:2}}>
-                Cerrar Sesión
-              </Button>
-            </>
-          ) : (
-            <Button variant="contained" color="primary" href="/login">
-              Login
-            </Button>
-          )}
-      </Box>
     </Box>
   );
 }

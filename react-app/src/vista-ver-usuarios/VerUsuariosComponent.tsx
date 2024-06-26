@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Table, TableBody, TableCell, TableHead, 
+import { Table, TableBody, TableCell, TableHead, 
   TableRow, TextField, Button, Select, MenuItem, FormControl, 
   InputLabel, TableContainer, SelectChangeEvent, 
-  Paper,
-  Tooltip} from '@mui/material';
+  Paper, Tooltip} from '@mui/material';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_USUARIOS, GET_ROLES, ADD_USUARIO, UPDATE_USUARIO, DELETE_USUARIO } from './graphql';
 import { User, Rol } from './Models';

@@ -66,3 +66,23 @@ root
 - Documentación MUI: 
   - [Componentes](https://mui.com/material-ui/all-components/)
   - [Breakpoints responsivos](https://mui.com/system/getting-started/usage/#responsive-values)
+
+## Flujo integrado
+
+- Login y registro
+- Vista administrador de usuarios
+- Filltrado de menú dado rol
+- Visualización de horas de paciente (alfa)
+
+### Usuarios al 26-06-24
+
+| Rol         | Usuario     | Pass        |
+| ---         | ---         | ---         |
+| Paciente    | Paciente1   | 22222       |
+| Admin       | react       | react       |
+| Secretaria  | Secretaria1 | secretaria  |
+| Médico      | doctor1     | doctor      |
+| Cajero      | cajero      | caja        |
+
+
+ 

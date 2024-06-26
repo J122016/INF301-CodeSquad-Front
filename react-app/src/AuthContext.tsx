@@ -1,8 +1,12 @@
+import { useQuery } from '@apollo/client';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { GET_ROLES } from './vista-ver-usuarios/graphql';
+import { Rol } from './vista-ver-usuarios/Models';
 
 interface AuthContextProps {
   user: string | null;
-  login: (username: string) => void;
+  rol: string | null;
+  login: (username: string, nrol:string) => void;
   logout: () => void;
 }
 
@@ -14,17 +18,23 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<string | null>(null);
+  const [rol, setRol] = useState<string | null>(null);
 
-  const login = (username: string) => {
+  const { data: rolesData } = useQuery(GET_ROLES);
+
+  const login = (username: string, nrol:string) => {
     setUser(username);
+    const userRol = rolesData.getRoles.find((el:Rol) => el.nrol === nrol);
+    setRol(userRol? userRol.rol : null);
   };
 
   const logout = () => {
     setUser(null);
+    setRol(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, rol, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

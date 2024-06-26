@@ -43,11 +43,37 @@ const LoginComponent: React.FC = () => {
       setRut(data.login.rut);
       setLoginMessage(data.login.mensaje);
       if (data.login.mensaje === 'Login correcto') {
-        login(username || email);
+        login(username || email, data.login.nrol);
+        setTimeout(() => { 
+          switch (data.login.nrol) {
+            case '5':
+              //Paciente
+              navigate('/pedir-hora');
+              break
+            case '3':
+              //Medico
+              navigate('/consultar-paciente');
+              break
+            case '1':
+              //admin
+              navigate('/ver-usuarios');
+              break
+            case '2':
+              //secretaria
+              navigate('/calendario');
+              break;
+            case '4':
+              //cajero
+              navigate('/ingreso-pago');
+              break;
+            default:
+              //otro
+              navigate('/inicio')
+              break;
+          } }, 3500);
       }
       setOpenModal(true);
       setTimeout(() => { setOpenModal(true) }, 2000);
-      setTimeout(() => { navigate('/pedir-hora') }, 3500);
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       setLoginMessage('Error al iniciar sesión');
